@@ -3,63 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-        <div class="content">
-            <h3 class="title">Launching very soon!</h3>
-            <p>We are working hard in backend.</p>
-            <div class="count-down">
-                <div class="box">
-                    <h3 id="day">00</h3>
-                    <span>day</span>
-                </div>
-                <div class="box">
-                    <h3 id="hour">00</h3>
-                    <span>hour</span>
-                </div>
-                <div class="box">
-                    <h3 id="minute">00</h3>
-                    <span>minute</span>
-                </div>
-                <div class="box">
-                    <h3 id="second">00</h3>
-                    <span>second</span>
-                </div>
-            </div>
-        </div>
-        <div class="image">
-            <img src="images/logo.svg" alt="">
-        </div>
-    </div>
-
-    <script>
-        let countDate = new Date('aug 31, 2024 00:00:00').getTime();
-
-        function countDown() {
-            let now = new Date().getTime();
-            let gap = countDate - now;
-
-            let second = 1000;
-            let minute = second * 60;
-            let hour = minute * 60;
-            let day = hour * 24;
-
-            let d = Math.floor(gap / day);
-            let h = Math.floor((gap % day) / hour);
-            let m = Math.floor((gap % hour) / minute);
-            let s = Math.floor((gap % minute) / second);
-
-            document.getElementById('day').innerText = d;
-            document.getElementById('hour').innerText = h;
-            document.getElementById('minute').innerText = m;
-            document.getElementById('second').innerText = s;
+    <title>Career Launchpad</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+            background-color: #000;
+            color: white;
         }
 
-        setInterval(function() {
-            countDown();
-        }, 1000);
-    </script>
+        /* Animations */
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main container */
+        .min-h-screen {
+            min-height: 100vh;
+            background: linear-gradient(to bottom right, rgb(17, 24, 39), rgb(31, 41, 55), rgb(0, 0, 0));
+        }
+
+        /* Hero section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Gradient orbs */
+        .blob {
+            position: absolute;
+            width: 18rem;
+            height: 18rem;
+            border-radius: 9999px;
+            mix-blend-mode: multiply;
+            filter: blur(1rem);
+            opacity: 0.7;
+            animation: blob 7s infinite;
+        }
+
+        .blob-1 {
+            top: 0;
+            left: -1rem;
+            background: rgb(168, 85, 247);
+        }
+
+        .blob-2 {
+            top: 0;
+            right: -1rem;
+            background: rgb(59, 130, 246);
+            animation-delay: 2s;
+        }
+
+        .blob-3 {
+            bottom: -2rem;
+            left: 5rem;
+            background: rgb(34, 211, 238);
+            animation-delay: 4s;
+        }
+
+        /* Content */
+        .content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .title {
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 2rem;
+            animation: fade-in 0.6s ease-out forwards;
+        }
+
+        .description {
+            font-size: clamp(1.25rem, 2vw, 1.5rem);
+            color: rgb(209, 213, 219);
+            margin-bottom: 3rem;
+            max-width: 42rem;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fade-in 0.6s ease-out forwards;
+            animation-delay: 200ms;
+            opacity: 0;
+        }
+
+        @keyframes gradient-shift {
+            0% {
+                background: linear-gradient(to right, rgb(59, 130, 246), rgb(147, 51, 234));
+            }
+            25% {
+                background: linear-gradient(to right, rgb(147, 51, 234), rgb(34, 211, 238));
+            }
+            50% {
+                background: linear-gradient(to right, rgb(34, 211, 238), rgb(59, 130, 246));
+            }
+            75% {
+                background: linear-gradient(to right, rgb(59, 130, 246), rgb(168, 85, 247));
+            }
+            100% {
+                background: linear-gradient(to right, rgb(59, 130, 246), rgb(147, 51, 234));
+            }
+        }
+
+        .button {
+            background: linear-gradient(to right, rgb(59, 130, 246), rgb(147, 51, 234));
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0px;
+            font-size: 1.125rem;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+            animation: gradient-shift 8s ease-in-out infinite; /* Smooth gradient */
+        }
+
+        .button:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+
+        /* Icon */
+        .sparkles {
+            width: 1.25rem;
+            height: 1.25rem;
+            transition: transform 0.2s;
+        }
+
+        .button:hover .sparkles {
+            transform: rotate(12deg);
+        }
+
+        /* Small text */
+        .coming-soon {
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            color: rgb(156, 163, 175);
+            animation: fade-in 0.6s ease-out forwards;
+            opacity: 0;
+            animation-delay: 400ms;
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen">
+        <div class="hero">
+            <!-- Gradient orbs -->
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+
+            <!-- Content -->
+            <div class="content">
+                <h1 class="title">Job applications are just a click away!</h1>
+                <p class="description">
+                   Let AI search jobs and rebuild your resumes while you sip in your favourite coffee
+                </p>
+                <button class="button" onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSczaJ8oiEd_S7fJUq7o3eo0zpfkn9L4AJWlz_7jHgwCAF_hjw/viewform?usp=sf_link ';">
+                    Join beta for free
+                    <svg class="sparkles" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+                        <path d="M5 3v4"/>
+                        <path d="M19 17v4"/>
+                        <path d="M3 5h4"/>
+                        <path d="M17 19h4"/>
+                    </svg>
+                </button>
+                <p class="coming-soon">Website coming soon</p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
